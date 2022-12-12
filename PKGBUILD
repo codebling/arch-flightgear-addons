@@ -25,7 +25,7 @@ prepare() {
 }
 
 build() {
-  unzip ${_addonfullname}.zip
+  unzip ${_addonfullname}.zip > /dev/null
   mv flightgear-fgaddon-${pkgver}-trunk-${_addonfullname} ${_addonfullname}
 }
 
