@@ -31,5 +31,5 @@ build() {
 
 package() {
   mkdir -p ${pkgdir}${_installdir}${_addonfullnameasdir}
-  cp -rv ${srcdir}/${_addonfullname}/* ${pkgdir}${_installdir}${_addonfullnameasdir}
+  cp -r ${srcdir}/${_addonfullname}/* ${pkgdir}${_installdir}${_addonfullnameasdir}
 }
