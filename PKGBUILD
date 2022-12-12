@@ -1,5 +1,7 @@
-_pkgname=${MODULE}-${ADDON}
-_path=${MODULE}/${ADDON}
+_addontype=${ADDON_TYPE}
+_addonname=${ADDON_NAME}
+_pkgname=${_addontype}-${_addonname}
+_path=${_addontype}/${_addonname}
 _installpath=${INSTALLPATH-/usr/share/flightgear/data/}
 pkgname=flightgear-fgaddon-${_pkgname}-svn
 pkgver=rXXXX
