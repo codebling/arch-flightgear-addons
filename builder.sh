@@ -1,6 +1,8 @@
 #!/bin/sh
 # Flightgear Addons downloader and Arch package builder
 # This script relies on screen-scraping SourceForge, and as such might not be stable
+# 
+# I am aware of makepkg-template but I am not entirely sure how to leverage it, or if it would help in this case
 
 ADDON_MODULES=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tree/trunk/' -s -L | grep fa-folder | sed -E 's/.*href="([^"]*)".*/\1/' | grep -vE '^[./]*$'`
 
