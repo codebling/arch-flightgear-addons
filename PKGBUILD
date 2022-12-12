@@ -1,10 +1,10 @@
 _addontype=${ADDON_TYPE}
 _addonname=${ADDON_NAME}
-_pkgname=${_addontype}-${_addonname}
-_path=${_addontype}/${_addonname}
-_installpath=${INSTALLPATH-/usr/share/flightgear/data/}
-pkgname=flightgear-fgaddon-${_pkgname}-svn
-pkgver=rXXXX
+_addonfullname=${_addontype}-${_addonname}
+_addonfullnameasdir=${_addontype}/${_addonname}
+_installdir=${INSTALLDIR-/usr/share/flightgear/data/}
+pkgname=flightgear-fgaddon-${_addonfullname}-svn
+pkgver=r6967
 pkgrel=1
 pkgdesc="FlightGear add-ons and aircraft from the FGAddon repo"
 arch=(any)
@@ -19,17 +19,17 @@ pkgver() {
 }
 
 prepare() {
-  SESSION_ID=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tarball\?path\=/trunk/'$_path -vvv -s 2>&1 | grep -Eo '_session_id=[^;]*'`
-  FILE_URL=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tarball' -d 'path=/trunk/'$_path -d _session_id=$SESSION_ID -L -s | grep -Eo 'window.location.href[^;]*;' | grep -Eo 'http[^'\''"]+\.zip'`
-  curl $FILE_URL -o $_pkgname.zip
+  SESSION_ID=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tarball\?path\=/trunk/'$_addonfullnameasdir -vvv -s 2>&1 | grep -Eo '_session_id=[^;]*'`
+  FILE_URL=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tarball' -d 'path=/trunk/'$_addonfullnameasdir -d _session_id=$SESSION_ID -L -s | grep -Eo 'window.location.href[^;]*;' | grep -Eo 'http[^'\''"]+\.zip'`
+  curl $FILE_URL -o $_addonfullname.zip
 }
 
 build() {
-  unzip $_pkgname.zip
-  mv flightgear-fgaddon-$pkgver-trunk-$_pkgname $_pkgname
+  unzip $_addonfullname.zip
+  mv flightgear-fgaddon-$pkgver-trunk-$_addonfullname $_addonfullname
 }
 
 package() {
-  mkdir -p ${pkgdir}${_installpath}${_path}
-  cp -rv $srcdir/$_pkgname/* ${pkgdir}${_installpath}${_path}
+  mkdir -p ${pkgdir}${_installdir}${_addonfullnameasdir}
+  cp -rv $srcdir/$_addonfullname/* ${pkgdir}${_installdir}${_addonfullnameasdir}
 }
