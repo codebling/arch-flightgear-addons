@@ -19,9 +19,10 @@ pkgver() {
 }
 
 prepare() {
-  SESSION_ID=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tarball\?path\=/trunk/'${_addonfullnameasdir} -vvv -s 2>&1 | grep -Eo '_session_id=[^;]*'`
-  FILE_URL=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tarball' -d 'path=/trunk/'${_addonfullnameasdir} -d _session_id=$SESSION_ID -L -s | grep -Eo 'window.location.href[^;]*;' | grep -Eo 'http[^'\''"]+\.zip'`
-  curl $FILE_URL -o ${_addonfullname}.zip
+  SESSION_ID=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tarball\?path\=/trunk/'"${_addonfullnameasdir}" -vvv -s 2>&1 | grep -Eo '_session_id=[^;]*'`
+  FILE_URL=`curl 'https://sourceforge.net/p/flightgear/fgaddon/HEAD/tarball' -d 'path=/trunk/'"${_addonfullnameasdir}" -d _session_id=$SESSION_ID -L -s | grep -Eo 'window.location.href[^;]*;' | grep -Eo 'http[^'\''"]+\.zip'`
+  FILE_URL_NO_SPACE=`echo $FILE_URL | sed 's/ /%20/g'`
+  curl "$FILE_URL_NO_SPACE" -o ${_addonfullname}.zip
 }
 
 build() {
