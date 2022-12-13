@@ -1,1 +1,5 @@
 /*.zst
+/pkg/
+/src/
+/Addons*.zip
+/Aircraft*.zip
